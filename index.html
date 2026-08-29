@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * {
       margin: 0;
@@ -385,63 +384,74 @@
   </footer>
 
   <script>
-    // ===== ПОДКЛЮЧЕНИЕ К SUPABASE =====
-    const supabaseUrl = 'https://zznqzxvazjxhvgmyfppt.supabase.co';
-    const supabaseKey = 'sb_publishable_rn29EZDlLNVJ1HaBb6uFvg_SpE6CAcz';
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    // ===== ХРАНИЛИЩЕ =====
+    const STORAGE_KEY = 'novye_golosa_users';
+    const SESSION_KEY = 'novye_golosa_session';
 
-    // ===== ФУНКЦИИ =====
-    async function registerUser(name, email, password) {
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email, password
-      });
-      if (authError) { alert(authError.message); return false; }
+    function getUsers() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
+    }
+    function setUsers(u) { localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); }
+    function getSession() {
+      try { return JSON.parse(localStorage.getItem(SESSION_KEY)); } catch { return null; }
+    }
+    function setSession(email) {
+      if (email) localStorage.setItem(SESSION_KEY, JSON.stringify({ email }));
+      else localStorage.removeItem(SESSION_KEY);
+    }
 
-      const { error: dbError } = await supabase
-        .from('users')
-        .insert([{ id: authData.user.id, name, email }]);
-
-      if (dbError) {
-        console.error('Ошибка сохранения в таблицу users:', dbError);
-        alert('Регистрация прошла, но не удалось сохранить данные.');
-        return false;
-      }
-      alert('Регистрация успешна!');
+    function registerUser(name, email, password) {
+      const users = getUsers();
+      if (users.find(u => u.email === email)) { alert('Такой email уже есть.'); return false; }
+      users.push({ id: Date.now(), name, email, password, avatar: '', birthdate: '', bio: '', registeredAt: new Date().toISOString() });
+      setUsers(users);
+      alert('Регистрация успешна! Войдите.');
       return true;
     }
 
-    async function loginUser(email, password) {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) { alert('Неверный email или пароль.'); return false; }
-      alert('Добро пожаловать!');
+    function loginUser(email, password) {
+      const found = getUsers().find(u => u.email === email && u.password === password);
+      if (found) { setSession(email); return true; }
+      alert('Неверный email или пароль.');
+      return false;
+    }
+
+    function getCurrentUser() {
+      const s = getSession();
+      if (!s) return null;
+      return getUsers().find(u => u.email === s.email) || null;
+    }
+
+    function updateUser(email, updates) {
+      const users = getUsers();
+      const idx = users.findIndex(u => u.email === email);
+      if (idx === -1) return false;
+      users[idx] = { ...users[idx], ...updates };
+      setUsers(users);
       return true;
     }
 
-    async function getCurrentUser() {
-      const { data } = await supabase.auth.getUser();
-      return data?.user || null;
-    }
-
-    async function logoutUser() {
-      await supabase.auth.signOut();
+    function deleteUser(email) {
+      if (email === getCurrentUser()?.email) { alert('Нельзя удалить себя.'); return false; }
+      setUsers(getUsers().filter(u => u.email !== email));
+      return true;
     }
 
     // ===== UI =====
-    async function renderHeader() {
-      const user = await getCurrentUser();
+    function renderHeader() {
+      const user = getCurrentUser();
       const loginBtn = document.getElementById('loginBtn');
       const registerBtn = document.getElementById('registerBtn');
       const logoutBtn = document.getElementById('logoutBtn');
       const userGreeting = document.getElementById('userGreeting');
       const profileLink = document.getElementById('profileLink');
       const adminLink = document.getElementById('adminLink');
-
       if (user) {
         loginBtn.style.display = 'none';
         registerBtn.style.display = 'none';
         logoutBtn.style.display = 'inline';
         userGreeting.style.display = 'inline';
-        userGreeting.textContent = `👋 ${user.user_metadata?.name || user.email}`;
+        userGreeting.textContent = `👋 ${user.name}`;
         profileLink.style.display = 'inline';
         if (user.email === 'novyegolosa@gmail.com') adminLink.style.display = 'inline';
         else adminLink.style.display = 'none';
@@ -456,11 +466,13 @@
     }
 
     function showHomePage() {
+      const user = getCurrentUser();
+      const greeting = user ? `Добро пожаловать, ${user.name}!` : 'Новые голоса';
       document.getElementById('pageContent').innerHTML = `
-        <section class="hero"><h1>Новые голоса</h1><p>Молодёжное движение для тех, кто хочет говорить и менять</p><a href="#join" class="btn btn-primary">Присоединиться</a></section>
+        <section class="hero"><h1>${greeting}</h1><p>Молодёжное движение для тех, кто хочет говорить и менять</p><a href="#join" class="btn btn-primary">Присоединиться</a></section>
         <section class="section" id="about"><h2>О нас</h2><p>Мы — молодёжное движение, которое поддерживает экономическую грамотность, свободу интернета и здоровую политику. Мы говорим правду, даже если она жёсткая. Мы строим пространство для тех, кому не всё равно.</p></section>
         <section class="section" id="directions"><h2>Направления</h2><div class="cards"><div class="card"><h3>📊 Экономика</h3><p>Факты, цифры, разборы. Без политической воды — только реальность.</p></div><div class="card"><h3>🌐 Свобода интернета</h3><p>Против блокировок и цензуры. За открытый доступ к информации.</p></div><div class="card"><h3>🧠 Молодёжная политика</h3><p>Строим пространство, где молодёжь говорит и решает.</p></div></div></section>
-        <section class="section" id="content"><h2>Что мы делаем</h2><div class="cards"><div class="card"><h3>📹 Видео</h3><p>Разборы экономики, политики, критика системы</p></div><div class="card"><h3>📝 Статьи</h3><p>Тексты о том, как устроена власть и деньги</p></div><div class="card"><h3>💬 Сообщество</h3><p>Закрытый чат для единомышленников</p></div></div></section>
+        <section class="section" id="content"><h2>Что мы делаем</h2><div class="cards"><div class="card"><h3>📹 Видео</h3><p>Разборы ekonomiki, политики, критика системы</p></div><div class="card"><h3>📝 Статьи</h3><p>Тексты о том, как устроена власть и деньги</p></div><div class="card"><h3>💬 Сообщество</h3><p>Закрытый чат для единомышленников</p></div></div></section>
         <section class="section" id="creator"><h2>О создателе</h2><div class="profile-info"><p><strong>Ковалев Арсений Вячеславович</strong></p><p>14 лет</p><p>Я создал «Новые голоса», потому что устал ждать, пока кто-то скажет правду. Я строю движение, в котором молодёжь может говорить честно, жёстко и по делу. Это мой путь. Присоединяйся.</p></div></section>
         <section class="section join" id="join"><h2>Присоединяйся</h2><p>Оставь заявку, и мы свяжемся с тобой</p><a href="mailto:novyegolosa@gmail.com" class="btn btn-primary">Написать</a></section>
       `;
@@ -477,15 +489,12 @@
           <p style="margin-top:12px;">Уже есть аккаунт? <a href="#" id="goToLogin">Войти</a></p>
         </div></div>
       `;
-      document.getElementById('regSubmit').addEventListener('click', async function() {
+      document.getElementById('regSubmit').addEventListener('click', function() {
         const name = document.getElementById('regName').value.trim();
         const email = document.getElementById('regEmail').value.trim();
         const password = document.getElementById('regPassword').value.trim();
         if (!name || !email || !password) { alert('Заполните все поля.'); return; }
-        if (await registerUser(name, email, password)) {
-          await renderHeader();
-          showHomePage();
-        }
+        if (registerUser(name, email, password)) { renderHeader(); showHomePage(); }
       });
       document.getElementById('goToLogin').addEventListener('click', function(e) { e.preventDefault(); showLoginForm(); });
     }
@@ -500,92 +509,79 @@
           <p style="margin-top:12px;">Нет аккаунта? <a href="#" id="goToRegister">Зарегистрироваться</a></p>
         </div></div>
       `;
-      document.getElementById('loginSubmit').addEventListener('click', async function() {
+      document.getElementById('loginSubmit').addEventListener('click', function() {
         const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginPassword').value.trim();
         if (!email || !password) { alert('Заполните все поля.'); return; }
-        if (await loginUser(email, password)) {
-          await renderHeader();
-          showHomePage();
-        }
+        if (loginUser(email, password)) { renderHeader(); showHomePage(); }
       });
       document.getElementById('goToRegister').addEventListener('click', function(e) { e.preventDefault(); showRegisterForm(); });
     }
 
-    async function showProfile() {
-      const user = await getCurrentUser();
+    function showProfile() {
+      const user = getCurrentUser();
       if (!user) { showLoginForm(); return; }
-
-      const { data: userData } = await supabase
-        .from('users')
-        .select('name, avatar, birthdate, bio')
-        .eq('id', user.id)
-        .single();
-
       document.getElementById('pageContent').innerHTML = `
         <div class="section" style="max-width:700px;"><h2>Редактирование профиля</h2>
         <div class="profile-edit">
-          <input type="text" id="editName" value="${userData?.name || ''}" placeholder="Имя" />
-          <input type="email" id="editEmail" value="${user.email}" disabled />
-          <input type="text" id="editAvatar" value="${userData?.avatar || ''}" placeholder="Ссылка на аватар (URL)" />
-          <input type="date" id="editBirthdate" value="${userData?.birthdate || ''}" placeholder="Дата рождения" />
-          <textarea id="editBio" placeholder="О себе">${userData?.bio || ''}</textarea>
+          <input type="text" id="editName" value="${user.name || ''}" placeholder="Имя" />
+          <input type="email" id="editEmail" value="${user.email || ''}" placeholder="Email" disabled />
+          <input type="text" id="editAvatar" value="${user.avatar || ''}" placeholder="Ссылка на аватар (URL)" />
+          <input type="date" id="editBirthdate" value="${user.birthdate || ''}" placeholder="Дата рождения" />
+          <textarea id="editBio" placeholder="О себе">${user.bio || ''}</textarea>
           <button class="btn btn-primary" id="saveProfile">Сохранить</button>
         </div>
         <div style="margin-top:20px; background:white; padding:20px; border-radius:16px;">
           <h3>Ваш профиль</h3>
-          ${userData?.avatar ? `<img src="${userData.avatar}" style="max-width:100px; border-radius:50%;" />` : ''}
-          <p><strong>Имя:</strong> ${userData?.name || 'не указано'}</p>
+          ${user.avatar ? `<img src="${user.avatar}" style="max-width:100px; border-radius:50%;" />` : ''}
+          <p><strong>Имя:</strong> ${user.name}</p>
           <p><strong>Email:</strong> ${user.email}</p>
-          <p><strong>Дата рождения:</strong> ${userData?.birthdate || 'не указана'}</p>
-          <p><strong>О себе:</strong> ${userData?.bio || 'не указано'}</p>
+          <p><strong>Дата рождения:</strong> ${user.birthdate || 'не указана'}</p>
+          <p><strong>О себе:</strong> ${user.bio || 'не указано'}</p>
         </div></div>
       `;
-      document.getElementById('saveProfile').addEventListener('click', async function() {
+      document.getElementById('saveProfile').addEventListener('click', function() {
         const name = document.getElementById('editName').value.trim();
         const avatar = document.getElementById('editAvatar').value.trim();
         const birthdate = document.getElementById('editBirthdate').value.trim();
         const bio = document.getElementById('editBio').value.trim();
         if (!name) { alert('Имя не может быть пустым.'); return; }
-        await supabase
-          .from('users')
-          .update({ name, avatar, birthdate, bio })
-          .eq('id', user.id);
-        alert('Профиль обновлён!');
-        await renderHeader();
+        updateUser(user.email, { name, avatar, birthdate, bio });
+        renderHeader();
         showProfile();
       });
     }
 
-    async function showAdminPanel() {
-      const user = await getCurrentUser();
+    function showAdminPanel() {
+      const user = getCurrentUser();
       if (!user || user.email !== 'novyegolosa@gmail.com') { showHomePage(); return; }
-
-      const { data: users } = await supabase
-        .from('users')
-        .select('*');
-
-      let listHtml = (users || []).map(u => `
+      const users = getUsers();
+      let listHtml = users.map(u => `
         <div class="user-item">
-          <span>${u.name || 'Без имени'} (${u.email})</span>
+          <span>${u.name} (${u.email})</span>
           ${u.email !== user.email ? `<button class="btn btn-outline" data-email="${u.email}">Удалить</button>` : '<span style="color:#999;">Это вы</span>'}
         </div>
       `).join('');
-
       document.getElementById('pageContent').innerHTML = `
         <div class="section" style="max-width:800px;">
           <h2>Админ-панель</h2>
-          <p>Всего пользователей: ${users?.length || 0}</p>
+          <p>Всего пользователей: ${users.length}</p>
           <div class="user-list">${listHtml}</div>
         </div>
       `;
+      document.querySelectorAll('[data-email]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const email = this.getAttribute('data-email');
+          if (confirm(`Удалить пользователя ${email}?`)) { deleteUser(email); showAdminPanel(); }
+        });
+      });
     }
 
     // ===== НАВИГАЦИЯ =====
-    document.getElementById('registerBtn').addEventListener('click', function(e) { e.preventDefault(); showRegisterForm(); });
-    document.getElementById('loginBtn').addEventListener('click', function(e) { e.preventDefault(); showLoginForm(); });
-    document.getElementById('logoutBtn').addEventListener('click', async function(e) { e.preventDefault(); await logoutUser(); await renderHeader(); showHomePage(); });
-    document.getElementById('profileLink').addEventListener('click', function(e) { e.preventDefault(); showProfile(); });
+    document.getElementById('registerBtn').addEventListener('click', function(e) { e.preventDefault(); if (getCurrentUser()) { alert('Вы уже авторизованы.'); return; } showRegisterForm(); });
+    document.getElementById('loginBtn').addEventListener('click', function(e) { e.preventDefault(); if (getCurrentUser()) { alert('Вы уже авторизованы.'); return; } showLoginForm(); });
+    document.getElementById('logoutBtn').addEventListener('click', function(e) { e.preventDefault(); setSession(null); renderHeader(); showHomePage(); });
+    document.getElementById('profileLink').addEventListener('click', function(e) { e.preventDefault(); if (getCurrentUser()) showProfile(); else showLoginForm(); });
     document.getElementById('adminLink').addEventListener('click', function(e) { e.preventDefault(); showAdminPanel(); });
 
     // ===== СТАРТ =====
