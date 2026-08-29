@@ -1,255 +1,750 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Новые голоса — молодёжное движение</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новые голоса — молодёжное движение</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f8fafc;
-      color: #0b1a1a;
-      line-height: 1.6;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0b1a1a;
+            line-height: 1.6;
+        }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 40px;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(0, 178, 169, 0.2);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      flex-wrap: wrap;
-    }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 40px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0, 178, 169, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
 
-    .logo {
-      font-size: 22px;
-      font-weight: 700;
-      color: #00b2a9;
-      letter-spacing: -0.5px;
-    }
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #00b2a9;
+            letter-spacing: -0.5px;
+        }
 
-    nav {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px 16px;
-    }
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+        }
 
-    nav a {
-      text-decoration: none;
-      color: #1a2b2b;
-      font-weight: 500;
-      font-size: 15px;
-      transition: color 0.2s;
-    }
+        nav a {
+            text-decoration: none;
+            color: #1a2b2b;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
 
-    nav a:hover {
-      color: #00b2a9;
-    }
+        nav a:hover {
+            color: #00b2a9;
+        }
 
-    .hero {
-      text-align: center;
-      padding: 80px 20px 60px;
-      background: linear-gradient(135deg, #00b2a9 0%, #007a73 100%);
-      color: white;
-    }
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: white;
+            color: #00b2a9;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 40px;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
 
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
+        .btn-primary {
+            background: #00b2a9;
+            color: white;
+            box-shadow: 0 8px 24px rgba(0, 178, 169, 0.2);
+        }
 
-    .hero p {
-      font-size: 20px;
-      opacity: 0.9;
-      max-width: 600px;
-      margin: 0 auto 28px;
-    }
+        .btn-primary:hover {
+            background: #008f87;
+            transform: translateY(-2px);
+        }
 
-    .btn {
-      display: inline-block;
-      padding: 14px 32px;
-      background: white;
-      color: #00b2a9;
-      text-decoration: none;
-      font-weight: 600;
-      border-radius: 40px;
-      transition: 0.25s ease;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #00b2a9;
+            color: #00b2a9;
+            box-shadow: none;
+        }
 
-    .btn-primary {
-      background: #00b2a9;
-      color: white;
-      box-shadow: 0 8px 24px rgba(0, 178, 169, 0.2);
-    }
+        .btn-outline:hover {
+            background: #00b2a9;
+            color: white;
+        }
 
-    .btn-primary:hover {
-      background: #008f87;
-      transform: translateY(-2px);
-    }
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: linear-gradient(135deg, #00b2a9 0%, #007a73 100%);
+            color: white;
+        }
 
-    .section {
-      padding: 60px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
 
-    .section h2 {
-      font-size: 30px;
-      font-weight: 600;
-      color: #0b1a1a;
-      margin-bottom: 16px;
-    }
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
 
-    .section p {
-      font-size: 18px;
-      color: #2d3f3f;
-      max-width: 720px;
-    }
+        .section {
+            padding: 60px 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
-    .cards,
-    .direction-cards {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
+        .section h2 {
+            font-size: 30px;
+            font-weight: 600;
+            color: #0b1a1a;
+            margin-bottom: 16px;
+        }
 
-    .card,
-    .direction-card {
-      background: white;
-      padding: 28px 24px;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-      flex: 1 1 200px;
-      border: 1px solid rgba(0, 178, 169, 0.08);
-    }
+        .section p {
+            font-size: 18px;
+            color: #2d3f3f;
+            max-width: 720px;
+        }
 
-    .card h3,
-    .direction-card h3 {
-      font-size: 20px;
-      color: #00b2a9;
-      margin-bottom: 8px;
-    }
+        .cards,
+        .direction-cards {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
 
-    .card p,
-    .direction-card p {
-      font-size: 15px;
-      color: #2d3f3f;
-    }
+        .card,
+        .direction-card {
+            background: white;
+            padding: 28px 24px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            flex: 1 1 200px;
+            border: 1px solid rgba(0, 178, 169, 0.08);
+        }
 
-    .direction-card {
-      border-left: 4px solid #00b2a9;
-    }
+        .card h3,
+        .direction-card h3 {
+            font-size: 20px;
+            color: #00b2a9;
+            margin-bottom: 8px;
+        }
 
-    .join {
-      text-align: center;
-      background: #f0f6f5;
-      border-radius: 32px;
-      margin: 20px auto 60px;
-      padding: 60px 40px;
-    }
+        .card p,
+        .direction-card p {
+            font-size: 15px;
+            color: #2d3f3f;
+        }
 
-    .join p {
-      font-size: 18px;
-      margin-bottom: 24px;
-    }
+        .direction-card {
+            border-left: 4px solid #00b2a9;
+        }
 
-    footer {
-      text-align: center;
-      padding: 24px 20px;
-      background: white;
-      border-top: 1px solid rgba(0, 178, 169, 0.12);
-      font-size: 14px;
-      color: #6b7f7f;
-    }
+        .join {
+            text-align: center;
+            background: #f0f6f5;
+            border-radius: 32px;
+            margin: 20px auto 60px;
+            padding: 60px 40px;
+        }
 
-    .direction-cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      margin-top: 12px;
-    }
+        .join p {
+            font-size: 18px;
+            margin-bottom: 24px;
+        }
 
-    .direction-card {
-      background: white;
-      padding: 20px 24px;
-      border-radius: 16px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-      flex: 1 1 200px;
-      border-left: 4px solid #00b2a9;
-    }
-  </style>
+        footer {
+            text-align: center;
+            padding: 24px 20px;
+            background: white;
+            border-top: 1px solid rgba(0, 178, 169, 0.12);
+            font-size: 14px;
+            color: #6b7f7f;
+        }
+
+        .auth-form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 32px;
+            border-radius: 24px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            border: 1px solid #dde7e7;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            background: #f9fbfb;
+        }
+
+        .auth-form input:focus {
+            outline: 2px solid #00b2a9;
+            background: white;
+        }
+
+        .profile-edit {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 32px;
+            border-radius: 24px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .profile-edit input,
+        .profile-edit textarea {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            border: 1px solid #dde7e7;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            background: #f9fbfb;
+        }
+
+        .profile-edit textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .profile-edit input:focus,
+        .profile-edit textarea:focus {
+            outline: 2px solid #00b2a9;
+            background: white;
+        }
+
+        .user-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .user-item {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(0, 178, 169, 0.08);
+        }
+
+        .user-item span {
+            font-weight: 500;
+        }
+
+        .user-item .btn {
+            padding: 6px 18px;
+            font-size: 13px;
+        }
+
+        .admin-only {
+            display: none;
+        }
+
+        .profile-info {
+            background: white;
+            padding: 24px 32px;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .profile-info p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        .direction-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 12px;
+        }
+
+        .direction-card {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            flex: 1 1 200px;
+            border-left: 4px solid #00b2a9;
+        }
+    </style>
 </head>
 <body>
+    <header id="header">
+        <div class="logo">Новые голоса</div>
+        <nav id="nav">
+            <a href="#about">О движении</a>
+            <a href="#directions">Направления</a>
+            <a href="#join">Присоединиться</a>
+            <a href="#about-creator">О создателе</a>
+            <a href="#" id="profileLink" style="display:none;">Профиль</a>
+            <a href="#" id="adminLink" class="admin-only">Админ-панель</a>
+            <span id="userGreeting" style="display:none; font-weight:500; color:#00b2a9;"></span>
+            <a href="#" id="logoutBtn" style="display:none;">Выйти</a>
+            <a href="#" id="loginBtn">Войти</a>
+            <a href="#" id="registerBtn">Регистрация</a>
+        </nav>
+    </header>
 
-<header>
-  <div class="logo">Новые голоса</div>
-  <nav>
-    <a href="#about">О движении</a>
-    <a href="#directions">Направления</a>
-    <a href="#join">Присоединиться</a>
-  </nav>
-</header>
+    <div id="pageContent">
+        <!-- Главная -->
+        <section class="hero">
+            <h1>Новые голоса</h1>
+            <p>Молодёжное движение для тех, кто хочет говорить и менять</p>
+            <a href="#join" class="btn btn-primary">Присоединиться</a>
+        </section>
 
-<section class="hero">
-  <h1>Новые голоса</h1>
-  <p>Молодёжное движение для тех, кто хочет говорить и менять</p>
-  <a href="#join" class="btn btn-primary">Присоединиться</a>
-</section>
+        <section class="section" id="about">
+            <h2>О нас</h2>
+            <p>Мы — молодёжное движение, которое поддерживает экономическую грамотность, свободу интернета и здоровую политику. Мы говорим правду, даже если она жёсткая. Мы строим пространство для тех, кому не всё равно.</p>
+        </section>
 
-<section class="section" id="about">
-  <h2>О нас</h2>
-  <p>Мы — молодёжное движение, которое поддерживает экономическую грамотность, свободу интернета и здоровую политику. Мы говорим правду, даже если она жёсткая. Мы строим пространство для тех, кому не всё равно.</p>
-</section>
+        <section class="section" id="directions">
+            <h2>Направления</h2>
+            <div class="direction-cards">
+                <div class="direction-card">
+                    <h3>📊 Экономика</h3>
+                    <p>Разборы, аналитика, финансовая грамотность для молодёжи.</p>
+                </div>
+                <div class="direction-card">
+                    <h3>🏛️ Политика</h3>
+                    <p>Честный взгляд на процессы. Поддержка партии «Новые люди».</p>
+                </div>
+                <div class="direction-card">
+                    <h3>🌐 Цифровая свобода</h3>
+                    <p>Интернет, блокировки, защита данных и свобода слова.</p>
+                </div>
+                <div class="direction-card">
+                    <h3>🚀 Молодёжное развитие</h3>
+                    <p>Встречи, лекции, проекты и личностный рост.</p>
+                </div>
+            </div>
+        </section>
 
-<section class="section" id="directions">
-  <h2>Направления</h2>
-  <div class="direction-cards">
-    <div class="direction-card">
-      <h3>📊 Экономика</h3>
-      <p>Разборы, аналитика, финансовая грамотность для молодёжи.</p>
+        <section class="section" id="about-creator">
+            <h2>О создателе</h2>
+            <div class="profile-info">
+                <p><strong>Имя:</strong> Ковалев Арсений Вячеславович</p>
+                <p><strong>Возраст:</strong> 14 лет</p>
+                <p><strong>О себе:</strong></p>
+                <p>Я — Арсений. Мне 14 лет, и я создал «Новые голоса».<br>
+                Это движение родилось не из желания быть «как все», а из потребности говорить то, что думаешь, даже если это неудобно.<br>
+                Я учусь, строю, пишу код, тягаю штангу и вижу, как устроена система.<br>
+                Я хочу, чтобы у молодёжи был свой голос — честный, жёсткий и по делу.<br>
+                Это мой путь. И я приглашаю тебя в него.</p>
+            </div>
+        </section>
+
+        <section class="section join" id="join">
+            <h2>Присоединяйся</h2>
+            <p>Оставь заявку, и мы свяжемся с тобой</p>
+            <a href="mailto:novyegolosa@gmail.com" class="btn btn-primary">Написать</a>
+        </section>
     </div>
-    <div class="direction-card">
-      <h3>🏛️ Политика</h3>
-      <p>Честный взгляд на процессы. Поддержка партии «Новые люди».</p>
-    </div>
-    <div class="direction-card">
-      <h3>🌐 Цифровая свобода</h3>
-      <p>Internet, блокировки, защита данных и свобода слова.</p>
-    </div>
-    <div class="direction-card">
-      <h3>🚀 Молодёжное развитие</h3>
-      <p>Встречи, лекции, проекты и личностный рост.</p>
-    </div>
-  </div>
-</section>
 
-<section class="join" id="join">
-  <h2>Присоединяйся</h2>
-  <p>Оставь заявку, и мы свяжемся с тобой</p>
-  <a href="mailto:novyegolosa@gmail.com" class="btn btn-primary">Написать</a>
-</section>
+    <footer>
+        <p>© 2026 Новые голоса</p>
+    </footer>
 
-<footer>
-  <p>© 2026 Новые голоса</p>
-</footer>
+    <script>
+        (function() {
+            const STORAGE_KEY = 'novye_golosa_users';
+            const SESSION_KEY = 'novye_golosa_session';
 
+            function getUsers() {
+                try {
+                    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+                } catch { return []; }
+            }
+
+            function setUsers(users) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+            }
+
+            function getSession() {
+                try {
+                    return JSON.parse(localStorage.getItem(SESSION_KEY));
+                } catch { return null; }
+            }
+
+            function setSession(email) {
+                if (email) {
+                    localStorage.setItem(SESSION_KEY, JSON.stringify({ email }));
+                } else {
+                    localStorage.removeItem(SESSION_KEY);
+                }
+            }
+
+            function registerUser(name, email, password) {
+                const users = getUsers();
+                if (users.find(u => u.email === email)) {
+                    alert('Пользователь с таким email уже существует.');
+                    return false;
+                }
+                const newUser = {
+                    id: Date.now(),
+                    name,
+                    email,
+                    password,
+                    avatar: '',
+                    birthdate: '',
+                    bio: '',
+                    registeredAt: new Date().toISOString()
+                };
+                users.push(newUser);
+                setUsers(users);
+                alert('Регистрация успешна! Теперь войдите.');
+                return true;
+            }
+
+            function loginUser(email, password) {
+                const users = getUsers();
+                const found = users.find(u => u.email === email && u.password === password);
+                if (found) {
+                    setSession(email);
+                    return true;
+                }
+                alert('Неверный email или пароль.');
+                return false;
+            }
+
+            function getCurrentUser() {
+                const session = getSession();
+                if (!session) return null;
+                const users = getUsers();
+                return users.find(u => u.email === session.email) || null;
+            }
+
+            function updateUser(email, updates) {
+                const users = getUsers();
+                const idx = users.findIndex(u => u.email === email);
+                if (idx === -1) return false;
+                users[idx] = { ...users[idx], ...updates };
+                setUsers(users);
+                return true;
+            }
+
+            function deleteUser(email) {
+                if (email === getCurrentUser()?.email) {
+                    alert('Нельзя удалить себя.');
+                    return false;
+                }
+                let users = getUsers();
+                users = users.filter(u => u.email !== email);
+                setUsers(users);
+                return true;
+            }
+
+            function renderHeader() {
+                const user = getCurrentUser();
+                const loginBtn = document.getElementById('loginBtn');
+                const registerBtn = document.getElementById('registerBtn');
+                const logoutBtn = document.getElementById('logoutBtn');
+                const userGreeting = document.getElementById('userGreeting');
+                const profileLink = document.getElementById('profileLink');
+                const adminLink = document.getElementById('adminLink');
+
+                if (user) {
+                    loginBtn.style.display = 'none';
+                    registerBtn.style.display = 'none';
+                    logoutBtn.style.display = 'inline';
+                    userGreeting.style.display = 'inline';
+                    userGreeting.textContent = `👋 ${user.name}`;
+                    profileLink.style.display = 'inline';
+                    if (user.email === 'novyegolosa@gmail.com') {
+                        adminLink.style.display = 'inline';
+                    } else {
+                        adminLink.style.display = 'none';
+                    }
+                } else {
+                    loginBtn.style.display = 'inline';
+                    registerBtn.style.display = 'inline';
+                    logoutBtn.style.display = 'none';
+                    userGreeting.style.display = 'none';
+                    profileLink.style.display = 'none';
+                    adminLink.style.display = 'none';
+                }
+            }
+
+            function showRegisterForm() {
+                const html = `
+              <div class="section" style="max-width:500px;">
+                <h2>Регистрация</h2>
+                <div class="auth-form">
+                  <input type="text" id="regName" placeholder="Имя" />
+                  <input type="email" id="regEmail" placeholder="Email" />
+                  <input type="password" id="regPassword" placeholder="Пароль" />
+                  <button class="btn btn-primary" id="regSubmit">Зарегистрироваться</button>
+                  <p style="margin-top:12px;">Уже есть аккаунт? <a href="#" id="goToLogin">Войти</a></p>
+                </div>
+              </div>
+            `;
+                document.getElementById('pageContent').innerHTML = html;
+                document.getElementById('regSubmit').addEventListener('click', function() {
+                    const name = document.getElementById('regName').value.trim();
+                    const email = document.getElementById('regEmail').value.trim();
+                    const password = document.getElementById('regPassword').value.trim();
+                    if (!name || !email || !password) {
+                        alert('Заполните все поля.');
+                        return;
+                    }
+                    if (registerUser(name, email, password)) {
+                        renderHeader();
+                        showHomePage();
+                    }
+                });
+                document.getElementById('goToLogin').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLoginForm();
+                });
+            }
+
+            function showLoginForm() {
+                const html = `
+              <div class="section" style="max-width:500px;">
+                <h2>Вход</h2>
+                <div class="auth-form">
+                  <input type="email" id="loginEmail" placeholder="Email" />
+                  <input type="password" id="loginPassword" placeholder="Пароль" />
+                  <button class="btn btn-primary" id="loginSubmit">Войти</button>
+                  <p style="margin-top:12px;">Нет аккаунта? <a href="#" id="goToRegister">Зарегистрироваться</a></p>
+                </div>
+              </div>
+            `;
+                document.getElementById('pageContent').innerHTML = html;
+                document.getElementById('loginSubmit').addEventListener('click', function() {
+                    const email = document.getElementById('loginEmail').value.trim();
+                    const password = document.getElementById('loginPassword').value.trim();
+                    if (!email || !password) {
+                        alert('Заполните все поля.');
+                        return;
+                    }
+                    if (loginUser(email, password)) {
+                        renderHeader();
+                        showHomePage();
+                    }
+                });
+                document.getElementById('goToRegister').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showRegisterForm();
+                });
+            }
+
+            function showHomePage() {
+                const user = getCurrentUser();
+                const greeting = user ? `Добро пожаловать, ${user.name}!` : 'Новые голоса';
+                const html = `
+              <section class="hero">
+                <h1>${greeting}</h1>
+                <p>Молодёжное движение для тех, кто хочет говорить и менять</p>
+                <a href="#join" class="btn btn-primary">Присоединиться</a>
+              </section>
+              <section class="section" id="about">
+                <h2>О нас</h2>
+                <p>Мы — молодёжное движение, которое поддерживает экономическую грамотность, свободу интернета и здоровую политику. Мы говорим правду, даже если она жёсткая. Мы строим пространство для тех, кому не всё равно.</p>
+              </section>
+              <section class="section" id="directions">
+                <h2>Направления</h2>
+                <div class="direction-cards">
+                  <div class="direction-card">
+                    <h3>📊 Экономика</h3>
+                    <p>Разборы, аналитика, финансовая грамотность для молодёжи.</p>
+                  </div>
+                  <div class="direction-card">
+                    <h3>🏛️ Политика</h3>
+                    <p>Честный взгляд на процессы. Поддержка партии «Новые люди».</p>
+                  </div>
+                  <div class="direction-card">
+                    <h3>🌐 Цифровая свобода</h3>
+                    <p>Интернет, блокировки, защита данных и свобода слова.</p>
+                  </div>
+                  <div class="direction-card">
+                    <h3>🚀 Молодёжное развитие</h3>
+                    <p>Встречи, лекции, проекты и личностный рост.</p>
+                  </div>
+                </div>
+              </section>
+              <section class="section" id="about-creator">
+                <h2>О создателе</h2>
+                <div class="profile-info">
+                  <p><strong>Имя:</strong> Ковалев Арсений Вячеславович</p>
+                  <p><strong>Возраст:</strong> 14 лет</p>
+                  <p><strong>О себе:</strong></p>
+                  <p>Я — Арсений. Мне 14 лет, и я создал «Новые голоса».<br>
+                  Это движение родилось не из желания быть «как все», а из потребности говорить то, что думаешь, даже если это неудобно.<br>
+                  Я учусь, строю, пишу код, тягаю штангу и вижу, как устроена система.<br>
+                  Я хочу, чтобы у молодёжи был свой голос — честный, жёсткий и по делу.<br>
+                  Это мой путь. И я приглашаю тебя в него.</p>
+                </div>
+              </section>
+              <section class="section join" id="join">
+                <h2>Присоединяйся</h2>
+                <p>Оставь заявку, и мы свяжемся с тобой</p>
+                <a href="mailto:novyegolosa@gmail.com" class="btn btn-primary">Написать</a>
+              </section>
+            `;
+                document.getElementById('pageContent').innerHTML = html;
+            }
+
+            function showProfile() {
+                const user = getCurrentUser();
+                if (!user) { showLoginForm(); return; }
+                const html = `
+              <div class="section" style="max-width:700px;">
+                <h2>Редактирование профиля</h2>
+                <div class="profile-edit">
+                  <input type="text" id="editName" value="${user.name || ''}" placeholder="Имя" />
+                  <input type="email" id="editEmail" value="${user.email || ''}" placeholder="Email" disabled />
+                  <input type="text" id="editAvatar" value="${user.avatar || ''}" placeholder="Ссылка на аватар (URL)" />
+                  <input type="date" id="editBirthdate" value="${user.birthdate || ''}" placeholder="Дата рождения" />
+                  <textarea id="editBio" placeholder="О себе">${user.bio || ''}</textarea>
+                  <button class="btn btn-primary" id="saveProfile">Сохранить</button>
+                </div>
+                <div style="margin-top:20px; background:white; padding:20px; border-radius:16px;">
+                  <h3>Ваш профиль</h3>
+                  ${user.avatar ? `<img src="${user.avatar}" style="max-width:100px; border-radius:50%;" />` : ''}
+                  <p><strong>Имя:</strong> ${user.name}</p>
+                  <p><strong>Email:</strong> ${user.email}</p>
+                  <p><strong>Дата рождения:</strong> ${user.birthdate || 'не указана'}</p>
+                  <p><strong>О себе:</strong> ${user.bio || 'не указано'}</p>
+                </div>
+              </div>
+            `;
+                document.getElementById('pageContent').innerHTML = html;
+                document.getElementById('saveProfile').addEventListener('click', function() {
+                    const name = document.getElementById('editName').value.trim();
+                    const avatar = document.getElementById('editAvatar').value.trim();
+                    const birthdate = document.getElementById('editBirthdate').value.trim();
+                    const bio = document.getElementById('editBio').value.trim();
+                    if (!name) { alert('Имя не может быть пустым.'); return; }
+                    updateUser(user.email, { name, avatar, birthdate, bio });
+                    renderHeader();
+                    showProfile();
+                });
+            }
+
+            function showAdminPanel() {
+                const user = getCurrentUser();
+                if (!user || user.email !== 'novyegolosa@gmail.com') {
+                    showHomePage();
+                    return;
+                }
+                const users = getUsers();
+                let listHtml = users.map(u => `
+              <div class="user-item">
+                <span>${u.name} (${u.email})</span>
+                ${u.email !== user.email ? `<button class="btn btn-outline" data-email="${u.email}">Удалить</button>` : '<span style="color:#999;">Это вы</span>'}
+              </div>
+            `).join('');
+                const html = `
+              <div class="section" style="max-width:800px;">
+                <h2>Админ-панель</h2>
+                <p>Всего пользователей: ${users.length}</p>
+                <div class="user-list">${listHtml}</div>
+              </div>
+            `;
+                document.getElementById('pageContent').innerHTML = html;
+                document.querySelectorAll('[data-email]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const email = this.getAttribute('data-email');
+                        if (confirm(`Удалить пользователя ${email}?`)) {
+                            deleteUser(email);
+                            showAdminPanel();
+                        }
+                    });
+                });
+            }
+
+            function initNavigation() {
+                document.getElementById('registerBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (getCurrentUser()) { alert('Вы уже авторизованы.'); return; }
+                    showRegisterForm();
+                });
+                document.getElementById('loginBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (getCurrentUser()) { alert('Вы уже авторизованы.'); return; }
+                    showLoginForm();
+                });
+                document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    setSession(null);
+                    renderHeader();
+                    showHomePage();
+                });
+                document.getElementById('profileLink').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (getCurrentUser()) showProfile();
+                    else showLoginForm();
+                });
+                document.getElementById('adminLink').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showAdminPanel();
+                });
+                document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+                    if (link.id === 'profileLink' || link.id === 'adminLink') return;
+                    link.addEventListener('click', function(e) {
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) target.scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+            }
+
+            renderHeader();
+            showHomePage();
+            initNavigation();
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn') && e.target.textContent.includes('Присоединиться')) {
+                    e.preventDefault();
+                    document.querySelector('#join')?.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+        })();
+    </script>
 </body>
 </html>
