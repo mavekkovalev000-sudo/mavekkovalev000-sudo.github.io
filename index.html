@@ -516,7 +516,6 @@
       const user = await getCurrentUser();
       if (!user) { showLoginForm(); return; }
 
-      // Получаем данные из таблицы users
       const { data: userData } = await supabase
         .from('users')
         .select('name, avatar, birthdate, bio')
