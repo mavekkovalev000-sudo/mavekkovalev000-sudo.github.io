@@ -220,6 +220,51 @@
       max-width: 600px;
       margin: 0 auto;
     }
+    .news {
+      background: white;
+      padding: 60px 40px;
+      border-radius: 32px;
+      margin: 20px auto 60px;
+      max-width: 1100px;
+      border-left: 4px solid #00b2a9;
+    }
+    .news h2 {
+      font-size: 30px;
+      color: #0b1a1a;
+      margin-bottom: 12px;
+    }
+    .news-item {
+      background: #f9fbfb;
+      padding: 20px 24px;
+      border-radius: 16px;
+      margin-top: 16px;
+      border: 1px solid rgba(0, 178, 169, 0.1);
+    }
+    .news-item h3 {
+      font-size: 20px;
+      color: #00b2a9;
+      margin-bottom: 4px;
+    }
+    .news-item p {
+      font-size: 16px;
+      color: #2d3f3f;
+    }
+    .news-item .date {
+      font-size: 13px;
+      color: #6b7f7f;
+      margin-top: 6px;
+    }
+    .autumn-badge {
+      display: inline-block;
+      background: #e67e22;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 8px;
+      letter-spacing: 0.3px;
+    }
     footer {
       text-align: center;
       padding: 24px 20px;
@@ -251,12 +296,13 @@
 <body>
 
   <header id="header">
-    <div class="logo">Новые голоса</div>
+    <div class="logo">Новые голоса <span class="autumn-badge">осень</span></div>
     <nav>
       <a href="#about">О нас</a>
       <a href="#directions">Направления</a>
       <a href="#content">Контент</a>
       <a href="#merch">Мерч</a>
+      <a href="#news">Новости</a>
       <a href="#creator">О создателе</a>
       <a href="#join">Присоединиться</a>
     </nav>
@@ -265,7 +311,7 @@
   <div id="pageContent">
     <section class="hero">
       <h1>Новые голоса</h1>
-      <p>Молодёжное движение для тех, кто хочет говорить и менять</p>
+      <p>Осень 2026 — время первого старта. Уроки, проекты, движение.</p>
       <a href="#join" class="btn">Присоединиться</a>
     </section>
 
@@ -296,6 +342,25 @@
       <h2>🧢 Мерч</h2>
       <p>Футболки, кружки и наклейки «Новых голосов» уже в разработке. Скоро здесь появится всё, чтобы ты мог носить движение с собой.</p>
       <p style="margin-top:12px; font-size:14px; color:#6b7f7f;">Следи за новостями</p>
+    </section>
+
+    <section class="section news" id="news">
+      <h2>🍂 Новости</h2>
+      <div class="news-item">
+        <h3>Первый урок — в октябре</h3>
+        <p>Стартуем с лекции по финансовой грамотности для старшеклассников. Готовим материалы, ищем площадку.</p>
+        <div class="date">30 августа 2026</div>
+      </div>
+      <div class="news-item">
+        <h3>Сайт обновлён к осени</h3>
+        <p>Новый дизайн, раздел «Новости» и анонсы событий. Движение входит в учебный сезон.</p>
+        <div class="date">30 августа 2026</div>
+      </div>
+      <div class="news-item">
+        <h3>Мерч в разработке</h3>
+        <p>Разрабатываем дизайн футболок и кружек. Первая партия — до конца сентября.</p>
+        <div class="date">29 августа 2026</div>
+      </div>
     </section>
 
     <section class="section" id="creator">
