@@ -228,6 +228,24 @@
       font-size: 14px;
       color: #6b7f7f;
     }
+    .partnership {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      padding: 0 20px 0 40px;
+    }
+    .movement {
+      color: #00b2a9;
+      font-weight: 700;
+    }
+    .symbol {
+      color: #0b1a1a;
+    }
+    .party {
+      color: #0b1a1a;
+      font-weight: 500;
+    }
     @media (max-width: 768px) {
       header {
         padding: 12px 16px;
@@ -246,38 +264,24 @@
         font-size: 13px;
       }
     }
-    .partnership {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 18px;
-}
-.movement {
-    color: #00b2a9;
-    font-weight: 700;
-}
-.symbol {
-    color: #0b1a1a;
-}
-.party {
-    color: #0b1a1a;
-    font-weight: 500;
-}
   </style>
 </head>
 <body>
-<div class="partnership">
-    <span class="movement">Новые Голоса</span>
-    <span class="symbol">×</span>
-    <span class="party">Новые Люди</span>
-</div>
+
   <header id="header">
     <div class="logo">Новые голоса</div>
+    <div class="partnership">
+      <span class="movement">Новые Голоса</span>
+      <span class="symbol">×</span>
+      <span class="party">Новые Люди</span>
+    </div>
     <nav>
       <a href="#about">О нас</a>
       <a href="#directions">Направления</a>
       <a href="#content">Контент</a>
       <a href="#merch">Мерч</a>
+      <a href="#volunteer">Волонтёрство</a>
+      <a href="#finance">Уроки</a>
       <a href="#creator">О создателе</a>
       <a href="#join">Присоединиться</a>
     </nav>
@@ -301,6 +305,21 @@
         <div class="card"><h3>📊 Экономика</h3><p>Факты, цифры, разборы. Без политической воды — только реальность.</p></div>
         <div class="card"><h3>🌐 Свобода интернета</h3><p>Против блокировок и цензуры. За открытый доступ к информации.</p></div>
         <div class="card"><h3>🧠 Молодёжная политика</h3><p>Строим пространство, где молодёжь говорит и решает.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="volunteer">
+      <h2>🤝 Волонтёрское направление</h2>
+      <p>Мы не только говорим — мы делаем. Наши волонтёры участвуют в мероприятиях, помогают людям и создают полезные проекты. Если ты хочешь быть полезным — присоединяйся к команде «Новых голосов».</p>
+    </section>
+
+    <section class="section" id="finance">
+      <h2>📚 Уроки финансовой грамотности</h2>
+      <p>Мы проводим занятия по финансовой грамотности для школьников с 1 по 11 класс. Наши уроки — это не скучная теория, а живые примеры, игры и реальные кейсы. Мы учим детей понимать деньги, планировать бюджет и не бояться финансовых вопросов.</p>
+      <div class="cards" style="margin-top:20px;">
+        <div class="card"><h3>1–4 классы</h3><p>Игры и сказки о деньгах. Что такое карманные деньги и как их копить.</p></div>
+        <div class="card"><h3>5–9 классы</h3><p>Бюджет, накопления, первые заработки. Как не попасть в финансовые ловушки.</p></div>
+        <div class="card"><h3>10–11 классы</h3><p>Кредиты, налоги, инвестиции. Что нужно знать перед взрослой жизнью.</p></div>
       </div>
     </section>
 
