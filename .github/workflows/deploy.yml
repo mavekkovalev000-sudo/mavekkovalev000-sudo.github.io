@@ -1,0 +1,25 @@
+name: Осеннее обновление
+
+on:
+  schedule:
+    - cron: '0 19 31 8 *'  # 1 сентября в 00:00 UTC
+  workflow_dispatch:      # для ручного запуска (на всякий случай)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Клонируем репозиторий
+        uses: actions/checkout@v4
+
+      - name: Настраиваем GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Загружаем на GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
+
+      - name: Публикуем на GitHub Pages
+        uses: actions/deploy-pages@v4
